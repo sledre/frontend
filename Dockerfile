@@ -13,5 +13,5 @@ RUN apk add --update \
 RUN mkdir -p /usr/src/app/
 WORKDIR /usr/src/app/
 
-COPY package*.json ./
+COPY . ./
 RUN npm install --fetch-timeout=600000 && npm rebuild node-sass
