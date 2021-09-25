@@ -23,7 +23,7 @@
             </b-form-checkbox>
           </template>
 
-          <template v-slot="{ ariaDescribedby }">
+          <template #default="{ ariaDescribedby }">
             <b-form-checkbox-group
               id="jobtypes"
               v-model="selected"
@@ -33,7 +33,7 @@
               class="ml-4"
               aria-label="Individual job type"
               stacked
-            ></b-form-checkbox-group>
+            />
           </template>
         </b-form-group>
 
@@ -49,7 +49,6 @@
         <span>
           {{ selected.length === 0 ? 'Please select at least one job.' : `${selected.length} job${selected.length === 1 ? '' : 's'} will be submited.` }}
         </span>
-
       </div>
     </template>
 
@@ -60,8 +59,8 @@
       <b-button
         size="md"
         variant="primary"
-        @click="ok()"
         :disabled="selected.length === 0"
+        @click="ok()"
       >
         Submit Jobs
       </b-button>
@@ -88,6 +87,21 @@ export default {
       indeterminate: false
     }
   },
+  watch: {
+    selected (newValue, oldValue) {
+      // Handle changes in individual flavour checkboxes
+      if (newValue.length === 0) {
+        this.indeterminate = false
+        this.allSelected = false
+      } else if (newValue.length === this.jobTypes.length) {
+        this.indeterminate = false
+        this.allSelected = true
+      } else {
+        this.indeterminate = true
+        this.allSelected = false
+      }
+    }
+  },
   methods: {
     cancelJobs () {
       this.selected = []
@@ -107,21 +121,6 @@ export default {
     },
     toggleAll (checked) {
       this.selected = checked ? this.jobTypes.slice() : []
-    }
-  },
-  watch: {
-    selected (newValue, oldValue) {
-      // Handle changes in individual flavour checkboxes
-      if (newValue.length === 0) {
-        this.indeterminate = false
-        this.allSelected = false
-      } else if (newValue.length === this.jobTypes.length) {
-        this.indeterminate = false
-        this.allSelected = true
-      } else {
-        this.indeterminate = true
-        this.allSelected = false
-      }
     }
   }
 }

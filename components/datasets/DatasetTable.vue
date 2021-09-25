@@ -7,8 +7,8 @@
       <b-col sm="2">
         <b-btn
           variant="primary"
-          @click="generateDataset"
           block
+          @click="generateDataset"
         >
           Generate a Dataset
         </b-btn>
@@ -34,10 +34,10 @@
 
       <template #cell(download)="row">
         <b-btn
-          variant="primary"
           v-b-modal="'jobModal'"
-          @click="downloadDataset(row.item.id)"
+          variant="primary"
           size="sm"
+          @click="downloadDataset(row.item.id)"
         >
           Download
         </b-btn>
@@ -45,10 +45,10 @@
 
       <template #cell(delete)="row">
         <b-btn
-          variant="danger"
           v-b-modal="'jobModal'"
-          @click="deleteDataset(row.item.id)"
+          variant="danger"
           size="sm"
+          @click="deleteDataset(row.item.id)"
         >
           Delete
         </b-btn>
