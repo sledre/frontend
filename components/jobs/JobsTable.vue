@@ -36,7 +36,7 @@
     <template #cell(actions)="row">
       <b-btn
         class="mr-2"
-        :disabled="row.item.state !== 'DONE'"
+        :disabled="!isResultAvailable(row.item)"
         size="sm"
         @click="downloadResults(row.item.id)"
       >
@@ -119,6 +119,13 @@ export default {
     },
     deleteJob (id) {
       this.$api.jobs.delete(id)
+    },
+    isResultAvailable (job) {
+      let b = job.state === 'DONE'
+      if (b && job.extras_results.tags !== null && job.extras_results.tags.includes('Empty')) {
+        b = false
+      }
+      return b
     }
   }
 }
