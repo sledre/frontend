@@ -1,7 +1,11 @@
 <template>
-  <b-table :items="jobs" :fields="fields" sort-by="start_time" fixed>
-    <template #cell(start_time)="row">
-      {{ $moment(row.item.start_time).format('LLL') }}
+  <b-table :items="jobs" :fields="fields" sort-by="creation_time">
+    <template #cell(creation_time)="row">
+      {{ $moment(row.item.creation_time).format('LLL') }}
+    </template>
+
+    <template #cell(state)="row">
+      <analysis-state class="ml-2" :state="row.item.state" />
     </template>
 
     <template #cell(tags)="row">
@@ -26,7 +30,7 @@
     </template>
 
     <template #cell(job_time)="row">
-      {{ row.item.job_time }}
+      {{ row.item.job_time }}s
     </template>
 
     <template #cell(actions)="row">
@@ -53,9 +57,10 @@
 </template>
 
 <script>
-
+import AnalysisState from '../malwares/AnalysisState.vue'
 export default {
   name: 'JobsTable',
+  components: { AnalysisState },
   props: {
     jobs: { type: Array, default: () => { return [] } }
   },
@@ -63,8 +68,14 @@ export default {
     return {
       fields: [
         {
-          key: 'start_time',
-          label: 'Job started on',
+          key: 'creation_time',
+          label: 'Job submitted on',
+          sortable: true,
+          class: 'text-center'
+        },
+        {
+          key: 'state',
+          label: 'State',
           sortable: true,
           class: 'text-center'
         },
