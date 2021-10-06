@@ -1,13 +1,10 @@
-FROM node:15.12-alpine
-
-ENV HOST 0.0.0.0
-ENV NODE_ENV development
+FROM docker.io/library/node:lts-alpine
 
 RUN apk add --update \
-    build-base \
-    python \
-    python-dev \
-    py-pip \
+  build-base \
+  python3 \
+  python3-dev \
+  py3-pip \
   && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /usr/src/app/
@@ -15,3 +12,5 @@ WORKDIR /usr/src/app/
 
 COPY . ./
 RUN npm install --fetch-timeout=600000 && npm rebuild node-sass
+
+ENV HOST 0.0.0.0
