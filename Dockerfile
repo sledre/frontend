@@ -1,4 +1,4 @@
-FROM docker.io/library/node:lts-alpine
+FROM docker.io/library/node:15-alpine
 
 RUN apk add --update \
   build-base \
