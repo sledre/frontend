@@ -1,6 +1,10 @@
-# SledRE
+# SledRE Frontend
 
-## Build Setup
+This is the SledRE frontend which is using the [nuxtjs](https://nuxtjs.org/) framework.
+
+You should refer to the main repository [SledRE](https://github.com/sledre/sledre) for any information.
+
+However, if you do need to build/run this project alone, you can follow the instructions below.
 
 ```bash
 # install dependencies
@@ -16,5 +20,3 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
